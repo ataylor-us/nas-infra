@@ -16,6 +16,7 @@
     group: root
     mode: "0400"
   no_log: true
+# community.general.zpool does not seem to be idempotent
 - name: Check whether zpool already exists
   become: true
   community.general.zpool_facts:
