@@ -6,6 +6,9 @@ Base playbook to set up my network attached storage box
 ssh-copy-id `#ip`
 ansible-playbook master.yml -e -e ansible_host=`#ip`
 ```
+## Hardware
+
+Using the [Beelink Mini PC, ME Pro](https://www.bee-link.com/products/beelink-me-pro), with 2x14TB drives + ZFS.
 
 ## Installation
 
