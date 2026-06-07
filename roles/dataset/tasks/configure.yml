@@ -1,0 +1,59 @@
+---
+- name: Create ZFS keys directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/zfs/keys
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+- name: Write zpool passphrase keyfile from pass
+  become: true
+  ansible.builtin.copy:
+    dest: "/etc/zfs/keys/{{ zpool_name }}.key"
+    content: "{{ zpool_key }}\n"
+    owner: root
+    group: root
+    mode: "0400"
+  no_log: true
+- name: Check whether zpool already exists
+  become: true
+  community.general.zpool_facts:
+    pool: "{{ zpool_name }}"
+  register: zpool_check
+  ignore_errors: true
+- name: Create encrypted zpool mirror
+  become: true
+  community.general.zpool:
+    name: "{{ zpool_name }}"
+    mountpoint: none
+    pool_properties:
+      ashift: "12"
+    filesystem_properties:
+      compression: lz4
+      encryption: aes-256-gcm
+      keyformat: passphrase
+      keylocation: "file:///etc/zfs/keys/{{ zpool_name }}.key"
+    vdevs:
+      - type: mirror
+        disks: "{{ zpool_disks }}"
+  when: zpool_check is failed
+- name: Create zfs-mount.service drop-in directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system/zfs-mount.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+- name: Configure zfs-mount.service to auto-load encryption keys
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/zfs-mount.service.d/load-keys.conf
+    content: |
+      [Service]
+      ExecStartPre=/usr/bin/zfs load-key -a
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload systemd

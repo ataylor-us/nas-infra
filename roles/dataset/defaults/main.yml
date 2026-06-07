@@ -1,0 +1,8 @@
+---
+aur_packages:
+  - zfs-linux-lts
+enabled_services:
+  - zfs-import-cache.service
+  - zfs-import.target
+  - zfs-mount.service
+  - zfs.target

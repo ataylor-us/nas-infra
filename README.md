@@ -1,10 +1,10 @@
-# Base Arch playbook
+# NAS infra
 
-Base playbook to set up an Arch box
+Base playbook to set up my network attached storage box
 
 ```bash
 ssh-copy-id `#ip`
-ansible-playbook master.yml -e tailscale_authkey=`#key` -e ansible_host=`#ip`
+ansible-playbook master.yml -e -e ansible_host=`#ip`
 ```
 
 ## Installation

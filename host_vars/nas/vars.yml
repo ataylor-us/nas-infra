@@ -1,0 +1,14 @@
+---
+domain_name: nas.internal
+zpool_name: tank
+zpool_disks:
+  - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
+  - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk2-path') }}"
+zpool_key: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-key') }}"
+# On boot, eth0/eth1 are the arbitrarily assigned network device names (different than post-boot)
+# They seem to switch randomly between the two, and I'm not sure why
+#
+# If I assign one, it'll break if the other gets pulled
+#
+# This works, I don't care why
+dropbear_ip_cmdline: "ip=:::::eth0:dhcp:ip=:::::eth1:dhcp"

@@ -8,12 +8,27 @@
     - editor
     - mounts
     - backups
-    - containers
     - terminal
     - role: artis3n.tailscale.machine
       when: "'production' in group_names"
       tags: tailscale
     - notifications
     - file_manager
-    - reverse_proxy
     - drift_management
+    - dataset
+  tasks:
+    # I canot disable the "Beelink Mini PC, ME Pro 2" speaker in the BIOS
+    # Until I get the soldering iron out, this will have to do
+    - name: Create blacklist config for pcspkr
+      become: true
+      copy:
+        dest: /etc/modprobe.d/nobeep.conf
+        content: "blacklist pcspkr\n"
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Unload pcspkr module now
+      become: true
+      community.general.modprobe:
+        name: pcspkr
+        state: absent
