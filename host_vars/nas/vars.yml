@@ -12,3 +12,7 @@ zpool_key: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra
 #
 # This works, I don't care why
 dropbear_ip_cmdline: "ip=:::::eth0:dhcp:ip=:::::eth1:dhcp"
+unas2_ip: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/unas2_ip') }}"
+lan_borg_repo: "{{ unas2_ip }}:/var/nfs/shared/borg"
+borg_passphrase: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/borg_passphrase') }}"
+remote_borg_repo_path: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/remote_borg_repo_path') }}"
