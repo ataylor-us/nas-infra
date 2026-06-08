@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+{% for export in nfs_exports %}
+{% set path = export.path | default(nfs_export_base + '/' + export.name) %}
+{# UID/GID defaults to 1000:1000, can be overridden per mount #}
+{# These are the anon IDs that root_squash / all_squash remap to -#}
+{% set uid = export.uid | default(nfs_default_uid) %}
+{% set gid = export.gid | default(nfs_default_gid) %}
+{{ path }}{% for client in export.clients %} {{ client }}({{ export.options }},anonuid={{ uid }},anongid={{ gid }}){% endfor %}
+
+{% endfor %}
