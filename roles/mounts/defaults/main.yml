@@ -7,3 +7,4 @@ aur_packages:
 enabled_services:
   - autofs
 autofs_mounts: []
+nfs_idmap_domain: internal

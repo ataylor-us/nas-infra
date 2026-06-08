@@ -4,3 +4,8 @@
   ansible.builtin.systemd:
     name: autofs
     state: restarted
+- name: Clear nfsidmap cache
+  become: true
+  ansible.builtin.command:
+    cmd: nfsidmap -c
+  changed_when: true

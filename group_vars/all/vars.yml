@@ -3,12 +3,26 @@ tailscale_authkey: "dummy"
 username: alex
 group: alex
 podman_data_dir: "/var/opt"
+podman_nfs_data_dir: "/misc"
 default_quadlet_options:
   - AutoUpdate=registry
   - Pull=missing
   - |
     [Unit]
     After=network-online.target nss-lookup.target autofs.service
+
+    [Service]
+    Restart=always
+
+    [Install]
+    WantedBy=default.target
+nfs_quadlet_options:
+  - AutoUpdate=registry
+  - Pull=missing
+  - |
+    [Unit]
+    After=network-online.target nss-lookup.target autofs.service
+    RequiresMountsFor={{ service_data_dir }}
 
     [Service]
     Restart=always

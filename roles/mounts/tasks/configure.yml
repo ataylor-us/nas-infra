@@ -1,4 +1,13 @@
 ---
+- name: Configure NFSv4 idmapd
+  become: true
+  ansible.builtin.template:
+    src: idmapd.conf.j2
+    dest: /etc/idmapd.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Clear nfsidmap cache
 - name: Configure auto.master
   become: true
   ansible.builtin.template:
