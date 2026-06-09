@@ -9,7 +9,7 @@ nfs_exports:
       - frontend.internal
       - backend.internal
 zfs_datasets:
-  - name: shared/forgejo
+  - name: tank/shared
     mountpoint: /srv/nfs/shared
 zpool_name: tank
 zpool_disks:
