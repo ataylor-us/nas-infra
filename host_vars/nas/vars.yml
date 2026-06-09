@@ -1,5 +1,7 @@
 ---
 domain_name: nas.internal
+unas2_domain: "unas2.internal"
+lan_borg_repo: "{{ unas2_domain }}:/var/nfs/shared/borg"
 zpool_name: tank
 zpool_disks:
   - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
