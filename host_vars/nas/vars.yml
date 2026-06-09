@@ -2,6 +2,15 @@
 domain_name: nas.internal
 unas2_domain: "unas2.internal"
 lan_borg_repo: "{{ unas2_domain }}:/var/nfs/shared/borg"
+nfs_exports:
+  - name: shared
+    options: "rw,sync,no_root_squash,mp"
+    clients:
+      - frontend.internal
+      - backend.internal
+zfs_datasets:
+  - name: shared/forgejo
+    mountpoint: /srv/nfs/shared
 zpool_name: tank
 zpool_disks:
   - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"

@@ -58,3 +58,13 @@
     group: root
     mode: "0644"
   notify: Reload systemd
+- name: Create zfs datasets
+  become: true
+  community.general.zfs:
+    name: "{{ item.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ item.mountpoint }}"
+  loop: "{{ zfs_datasets }}"
+  loop_control:
+    label: "{{ item.name }}"
