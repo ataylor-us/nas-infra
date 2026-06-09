@@ -7,7 +7,6 @@ nfs_exports:
     options: "rw,sync,no_root_squash,mp"
     clients:
       - frontend.internal
-      - backend.internal
 zfs_datasets:
   - name: tank/shared
     mountpoint: /srv/nfs/shared
