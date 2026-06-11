@@ -28,6 +28,16 @@
     owner: root
     validate: /usr/sbin/visudo -cf %s
   become: true
+- name: Increase password tries
+  ansible.builtin.copy:
+    content: |
+      Defaults        passwd_tries=20
+    dest: /etc/sudoers.d/03-passwd_tries
+    group: root
+    mode: "0440"
+    owner: root
+    validate: /usr/sbin/visudo -cf %s
+  become: true
 - name: Configure systemd-journald to persist storage
   ansible.builtin.include_role:
     name: persist_journald
