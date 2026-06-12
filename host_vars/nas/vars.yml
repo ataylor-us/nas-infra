@@ -3,10 +3,6 @@ domain_name: nas.internal
 unas2_domain: "unas2.internal"
 lan_borg_repo: "{{ unas2_domain }}:/var/nfs/shared/borg"
 nfs_exports:
-  - name: shared
-    options: "rw,sync,no_root_squash,mp"
-    clients:
-      - frontend.internal
   - name: immich-upload
     options: "rw,sync,no_root_squash,mp"
     uid: 0
@@ -25,15 +21,47 @@ nfs_exports:
     gid: 0
     clients:
       - frontend.internal
+  - name: paperless-consume
+    path: /srv/samba/paperless-consume
+    options: "rw,sync,no_root_squash,mp"
+    clients:
+      - frontend.internal
 zfs_datasets:
-  - name: tank/shared
-    mountpoint: /srv/nfs/shared
   - name: tank/immich-upload
     mountpoint: /srv/nfs/immich-upload
   - name: tank/immich-encoded-video
     mountpoint: /srv/nfs/immich-encoded-video
   - name: tank/karakeep-assets
     mountpoint: /srv/nfs/karakeep-assets
+  - name: tank/ludusavi
+    mountpoint: /srv/samba/ludusavi
+  - name: tank/paperless-consume
+    mountpoint: /srv/samba/paperless-consume
+samba_shares_root: /srv/samba
+samba_shares:
+  - name: ludusavi
+    comment: Game save backups
+    owner: "{{ username }}"
+    group: "{{ group }}"
+    directory_mode: "0755"
+    valid_users: gamepc
+    write_list: gamepc
+    user: "{{ username }}"
+  - name: paperless-consume
+    comment: Paperless consume
+    owner: "{{ username }}"
+    group: "{{ group }}"
+    directory_mode: "0755"
+    valid_users: epson
+    write_list: epson
+    user: "{{ username }}"
+samba_users:
+  - name: gamepc
+    password: "{{ gamepc_smb_password }}"
+  - name: epson
+    password: "{{ epson_smb_password }}"
+gamepc_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/gamepc_smb_password') }}"
+epson_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/epson_smb_password') }}"
 zpool_name: tank
 zpool_disks:
   - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
