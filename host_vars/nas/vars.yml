@@ -9,6 +9,8 @@ nfs_exports:
       - frontend.internal
   - name: immich-upload
     options: "rw,sync,no_root_squash,mp"
+    uid: 0
+    gid: 0
     clients:
       - frontend.internal
 zfs_datasets:
