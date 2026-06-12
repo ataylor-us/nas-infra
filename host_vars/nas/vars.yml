@@ -7,9 +7,15 @@ nfs_exports:
     options: "rw,sync,no_root_squash,mp"
     clients:
       - frontend.internal
+  - name: immich-upload
+    options: "rw,sync,no_root_squash,mp"
+    clients:
+      - frontend.internal
 zfs_datasets:
   - name: tank/shared
     mountpoint: /srv/nfs/shared
+  - name: tank/immich-upload
+    mountpoint: /srv/nfs/immich-upload
 zpool_name: tank
 zpool_disks:
   - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
