@@ -13,11 +13,19 @@ nfs_exports:
     gid: 0
     clients:
       - frontend.internal
+  - name: karakeep-assets
+    options: "rw,sync,no_root_squash,mp"
+    uid: 0
+    gid: 0
+    clients:
+      - frontend.internal
 zfs_datasets:
   - name: tank/shared
     mountpoint: /srv/nfs/shared
   - name: tank/immich-upload
     mountpoint: /srv/nfs/immich-upload
+  - name: tank/karakeep-assets
+    mountpoint: /srv/nfs/karakeep-assets
 zpool_name: tank
 zpool_disks:
   - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
