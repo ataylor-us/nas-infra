@@ -13,6 +13,12 @@ nfs_exports:
     gid: 0
     clients:
       - frontend.internal
+  - name: immich-encoded-video
+    options: "rw,sync,no_root_squash,mp"
+    uid: 0
+    gid: 0
+    clients:
+      - frontend.internal
   - name: karakeep-assets
     options: "rw,sync,no_root_squash,mp"
     uid: 0
@@ -24,6 +30,8 @@ zfs_datasets:
     mountpoint: /srv/nfs/shared
   - name: tank/immich-upload
     mountpoint: /srv/nfs/immich-upload
+  - name: tank/immich-encoded-video
+    mountpoint: /srv/nfs/immich-encoded-video
   - name: tank/karakeep-assets
     mountpoint: /srv/nfs/karakeep-assets
 zpool_name: tank
