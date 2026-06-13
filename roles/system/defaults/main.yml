@@ -6,6 +6,7 @@ packages:
   - rsync
   - curl
   - wget
+  - openbsd-netcat
   - cronie
   - bash-completion
   - which

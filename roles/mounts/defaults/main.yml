@@ -2,8 +2,6 @@
 packages:
   - nfs-utils
   - cifs-utils
-aur_packages:
-  - autofs
 enabled_services:
   - autofs
 autofs_mounts: []

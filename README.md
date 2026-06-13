@@ -26,3 +26,11 @@ Base packages:
 ```
 
 Firewall rules (& drift management) are handled externally by [OpenVox](https://voxpupuli.org/openvox/).
+
+## Manual Steps
+
+Because of recent supply chain attacks, I am taking the precaution to no longer use an AUR helper and am limiting my reliance on AUR packages.
+
+The following are built manually with `makepkg -si`, with the updated PKGBUILD reviewed before each build:
+
++ [autofs](https://aur.archlinux.org/packages/autofs)

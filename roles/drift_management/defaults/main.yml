@@ -1,5 +1,5 @@
 ---
-aur_packages:
+packages:
   - openvox
 enabled_services:
   - puppet

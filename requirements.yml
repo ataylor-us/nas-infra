@@ -12,7 +12,5 @@ collections:
     version: "1.19.0"
   - name: community.crypto
     version: "3.1.1"
-  - name: kewlfft.aur
-    version: "0.13.0"
   - name: vladgh.samba
     version: "3.5.6"
