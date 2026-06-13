@@ -16,11 +16,17 @@
     - file_manager
     - drift_management
     - role: datasets
-      tags: zfs
+      tags:
+        - zfs
+        - after-zfs
     - role: exports
-      tags: nfs
+      tags:
+        - nfs
+        - after-zfs
     - role: nt_file_server
-      tags: samba
+      tags:
+        - samba
+        - after-zfs
       become: true
   tasks:
     # I canot disable the "Beelink Mini PC, ME Pro 2" speaker in the BIOS

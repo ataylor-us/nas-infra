@@ -1,6 +1,4 @@
 ---
-- name: Install AUR packages
-  ansible.builtin.import_tasks: common/tasks/install_aur_packages.yml
 - name: Write configuration
   ansible.builtin.include_tasks: configure.yml
 - name: Enable services

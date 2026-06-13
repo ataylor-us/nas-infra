@@ -4,7 +4,9 @@ Base playbook to set up my network attached storage box
 
 ```bash
 ssh-copy-id `#ip`
-ansible-playbook master.yml -e -e ansible_host=`#ip`
+ansible-playbook master.yml -e ansible_host=`#ip` --skip-tags after-zfs
+# build & install zfs packages manually, reboot, then
+just
 ```
 ## Hardware
 
@@ -34,3 +36,5 @@ Because of recent supply chain attacks, I am taking the precaution to no longer 
 The following are built manually with `makepkg -si`, with the updated PKGBUILD reviewed before each build:
 
 + [autofs](https://aur.archlinux.org/packages/autofs)
++ [zfs-linux-lts](https://aur.archlinux.org/packages/zfs-linux-lts)
++ [zfs-utils](https://aur.archlinux.org/packages/zfs-utils)
