@@ -7,5 +7,4 @@ enabled_services:
 nfs_export_base: /srv/nfs
 nfs_default_uid: 1000
 nfs_default_gid: 1000
-nfs_idmap_domain: internal
 nfs_exports: []
