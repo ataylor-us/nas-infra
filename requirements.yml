@@ -11,6 +11,6 @@ collections:
   - name: containers.podman
     version: "1.19.0"
   - name: community.crypto
-    version: "3.2.1"
+    version: "3.2.2"
   - name: vladgh.samba
     version: "3.5.6"
