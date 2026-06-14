@@ -2,7 +2,7 @@
 roles:
   - name: persist_journald
     src: https://github.com/cisagov/ansible-role-persist-journald
-    version: v3.0.0
+    version: v3.1.0
 collections:
   - name: community.general
     version: "12.2.0"
