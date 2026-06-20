@@ -2,6 +2,8 @@
 
 Base playbook to set up my network attached storage box
 
+## Running
+
 ```bash
 ssh-copy-id `#ip`
 ansible-playbook master.yml -e ansible_host=`#ip` --skip-tags after-zfs
