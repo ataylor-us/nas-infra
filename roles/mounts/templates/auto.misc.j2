@@ -1,6 +1,3 @@
 {% for mount in autofs_mounts %}
 {{ mount.name }} -fstype={{ mount.fstype }},{{ mount.options }} {{ mount.remote }}
 {% endfor %}
-{% if lan_borg_repo is defined %}
-borg -fstype=nfs,nfsvers=3,rw,hard,noatime,nodiratime {{ lan_borg_repo }}
-{% endif %}
