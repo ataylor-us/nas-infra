@@ -63,8 +63,7 @@
   community.general.zfs:
     name: "{{ item.name }}"
     state: present
-    extra_zfs_properties:
-      mountpoint: "{{ item.mountpoint }}"
+    extra_zfs_properties: "{{ item.properties }}"
   loop: "{{ zfs_datasets }}"
   loop_control:
     label: "{{ item.name }}"

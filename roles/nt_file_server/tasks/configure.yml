@@ -17,6 +17,15 @@
     create_home: false
     password: "!"
     password_lock: true
+- name: Create laptop_pro user
+  become: true
+  ansible.builtin.user:
+    name: laptop_pro
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+    password: "!"
+    password_lock: true
 - name: Ensure /srv/samba is owned by root
   become: true
   ansible.builtin.file:

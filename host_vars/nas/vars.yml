@@ -1,7 +1,5 @@
 ---
 domain_name: nas.internal
-unas2_domain: "unas2.internal"
-lan_borg_repo: "{{ unas2_domain }}:/var/nfs/shared/borg"
 nfs_exports:
   - name: immich-upload
     options: "rw,sync,no_root_squash,mp"
@@ -28,16 +26,32 @@ nfs_exports:
       - frontend.internal
 zfs_datasets:
   - name: tank/immich-upload
-    mountpoint: /srv/nfs/immich-upload
+    properties:
+      mountpoint: /srv/nfs/immich-upload
   - name: tank/immich-encoded-video
-    mountpoint: /srv/nfs/immich-encoded-video
+    properties:
+      mountpoint: /srv/nfs/immich-encoded-video
   - name: tank/karakeep-assets
-    mountpoint: /srv/nfs/karakeep-assets
+    properties:
+      mountpoint: /srv/nfs/karakeep-assets
   - name: tank/ludusavi
-    mountpoint: /srv/samba/ludusavi
+    properties:
+      mountpoint: /srv/samba/ludusavi
   - name: tank/paperless-consume
-    mountpoint: /srv/samba/paperless-consume
+    properties:
+      mountpoint: /srv/samba/paperless-consume
+  - name: tank/timemachine-laptop-pro
+    properties:
+      mountpoint: /srv/samba/timemachine-laptop-pro
+      quota: 2T
+      xattr: sa
 samba_shares_root: /srv/samba
+# Used the following article to tune samba:
+# https://www.antoneliasson.se/journal/time-machine-compatible-samba-on-debian-buster/
+samba_global_config_extras: |
+  fruit:resource = xattr
+  fruit:encoding = native
+  fruit:copyfile = yes
 samba_shares:
   - name: ludusavi
     comment: Game save backups
@@ -55,13 +69,32 @@ samba_shares:
     valid_users: epson
     write_list: epson
     user: "{{ username }}"
+  - name: timemachine-laptop-pro
+    comment: Time Machine (laptop-pro)
+    owner: laptop_pro
+    group: laptop_pro
+    directory_mode: "0700"
+    valid_users: laptop_pro
+    write_list: laptop_pro
+    vfs_objects:
+      - name: catia
+      - name: fruit
+        options:
+          - name: time machine
+            value: "yes"
+          - name: time machine max size
+            value: "2T"
+      - name: streams_xattr
 samba_users:
   - name: gamepc
     password: "{{ gamepc_smb_password }}"
   - name: epson
     password: "{{ epson_smb_password }}"
+  - name: laptop_pro
+    password: "{{ laptop_pro_smb_password }}"
 gamepc_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/gamepc_smb_password') }}"
 epson_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/epson_smb_password') }}"
+laptop_pro_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/laptop_pro_smb_password') }}"
 zpool_name: tank
 zpool_disks:
   - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
