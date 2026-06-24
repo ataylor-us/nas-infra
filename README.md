@@ -1,8 +1,8 @@
 # NAS infra
 
-Base playbook to set up my network attached storage box
+Base playbook to set up my NAS (network attached storage) box
 
-## Running
+A [ZFS](https://github.com/openzfs/zfs) mirror (RAID1) is shared over NFS and Samba for various services in my homelab such as Time Machine backups, storage for my [frontend](https://github.com/ataylor-us/nas-infra) box, and more.
 
 ```bash
 ssh-copy-id `#ip`
