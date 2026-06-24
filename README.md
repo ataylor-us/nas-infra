@@ -4,6 +4,8 @@ Base playbook to set up my NAS (network attached storage) box
 
 A [ZFS](https://github.com/openzfs/zfs) mirror (RAID1) is shared over NFS and Samba for various services in my homelab such as Time Machine backups, storage for my [frontend](https://github.com/ataylor-us/nas-infra) box, and more.
 
+## Running
+
 ```bash
 ssh-copy-id `#ip`
 ansible-playbook master.yml -e ansible_host=`#ip` --skip-tags after-zfs
