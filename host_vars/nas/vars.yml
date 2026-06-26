@@ -37,6 +37,12 @@ zfs_datasets:
   - name: tank/ludusavi
     properties:
       mountpoint: /srv/samba/ludusavi
+  - name: tank/gamepc-share
+    properties:
+      mountpoint: /srv/samba/gamepc-share
+  - name: tank/laptop-pro-share
+    properties:
+      mountpoint: /srv/samba/laptop-pro-share
   - name: tank/paperless-consume
     properties:
       mountpoint: /srv/samba/paperless-consume
@@ -60,6 +66,22 @@ samba_shares:
     directory_mode: "0755"
     valid_users: gamepc
     write_list: gamepc
+    user: "{{ username }}"
+  - name: gamepc-share
+    comment: gamepc share
+    owner: "{{ username }}"
+    group: "{{ group }}"
+    directory_mode: "0755"
+    valid_users: gamepc
+    write_list: gamepc
+    user: "{{ username }}"
+  - name: laptop-pro-share
+    comment: laptop-pro share
+    owner: "{{ username }}"
+    group: "{{ group }}"
+    directory_mode: "0755"
+    valid_users: laptop_pro
+    write_list: laptop_pro
     user: "{{ username }}"
   - name: paperless-consume
     comment: Paperless consume
