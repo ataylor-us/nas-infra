@@ -14,7 +14,7 @@ just
 ```
 ## Hardware
 
-Using the [Beelink Mini PC, ME Pro](https://www.bee-link.com/products/beelink-me-pro), with 2x14TB drives + ZFS.
+Using the [Beelink Mini PC, ME Pro](https://www.bee-link.com/products/beelink-me-pro), with 2x14TB drives, plus a 500GB NVMe boot drive.
 
 ## Installation
 
