@@ -4,4 +4,8 @@ enabled_services:
   - zfs-import.target
   - zfs-mount.service
   - zfs.target
+  - zfs-auto-snapshot-hourly.timer
+  - zfs-auto-snapshot-daily.timer
+  - zfs-auto-snapshot-weekly.timer
+  - "zfs-scrub-monthly@{{ zpool_name }}.timer"
 zfs_datasets: []

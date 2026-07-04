@@ -51,6 +51,7 @@ zfs_datasets:
       mountpoint: /srv/samba/timemachine-laptop-pro
       quota: 2T
       xattr: sa
+      "com.sun:auto-snapshot": "false"
 samba_shares_root: /srv/samba
 # Used the following article to tune samba:
 # https://www.antoneliasson.se/journal/time-machine-compatible-samba-on-debian-buster/

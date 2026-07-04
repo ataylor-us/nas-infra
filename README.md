@@ -42,3 +42,4 @@ The following are built manually with `makepkg -si`, with the updated PKGBUILD r
 + [autofs](https://aur.archlinux.org/packages/autofs)
 + [zfs-linux-lts](https://aur.archlinux.org/packages/zfs-linux-lts)
 + [zfs-utils](https://aur.archlinux.org/packages/zfs-utils)
++ [zfs-auto-snapshot](https://aur.archlinux.org/packages/zfs-auto-snapshot)
