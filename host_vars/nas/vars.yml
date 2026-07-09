@@ -59,6 +59,7 @@ samba_global_config_extras: |
   fruit:resource = xattr
   fruit:encoding = native
   fruit:copyfile = yes
+  include = /etc/samba/extra-shares.conf
 samba_shares:
   - name: ludusavi
     comment: Game save backups
