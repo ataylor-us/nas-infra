@@ -1,7 +1,7 @@
 ---
 - name: Grant caddy user access to fetch Tailscale certificate
   become: true
-  when: "'production' in group_names"
+  when: "'tailscale' in group_names"
   tags: tailscale
   ansible.builtin.lineinfile:
     path: /etc/default/tailscaled

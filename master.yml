@@ -11,7 +11,7 @@
 #   - containers
     - terminal
     - role: artis3n.tailscale.machine
-      when: "'production' in group_names"
+      when: "'tailscale' in group_names"
       tags: tailscale
     - notifications
     - file_manager
