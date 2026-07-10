@@ -30,6 +30,12 @@ nfs_exports:
     gid: 0
     clients:
       - homeassistant.internal
+  - name: uptimekuma-backup
+    options: "rw,sync,no_root_squash,mp"
+    uid: 0
+    gid: 0
+    clients:
+      - beacon.internal
 zfs_datasets:
   - name: tank/immich-upload
     properties:
@@ -43,6 +49,9 @@ zfs_datasets:
   - name: tank/homeassistant-backup
     properties:
       mountpoint: /srv/nfs/homeassistant-backup
+  - name: tank/uptimekuma-backup
+    properties:
+      mountpoint: /srv/nfs/uptimekuma-backup
   - name: tank/ludusavi
     properties:
       mountpoint: /srv/samba/ludusavi
