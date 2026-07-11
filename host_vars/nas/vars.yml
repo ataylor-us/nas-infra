@@ -36,12 +36,6 @@ nfs_exports:
     gid: 0
     clients:
       - beacon.internal
-  - name: nt-vm-backup
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
-    clients:
-      - nt-hypervisor.internal
 zfs_datasets:
   - name: tank/immich-upload
     properties:
@@ -58,9 +52,6 @@ zfs_datasets:
   - name: tank/uptimekuma-backup
     properties:
       mountpoint: /srv/nfs/uptimekuma-backup
-  - name: tank/nt-vm-backup
-    properties:
-      mountpoint: /srv/nfs/nt-vm-backup
   - name: tank/ludusavi
     properties:
       mountpoint: /srv/samba/ludusavi
