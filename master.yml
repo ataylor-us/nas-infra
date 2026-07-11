@@ -8,14 +8,14 @@
     - editor
     - mounts
     - backups
-#   - containers
+    #   - containers
     - terminal
     - role: artis3n.tailscale.machine
       when: "'tailscale' in group_names"
       tags: tailscale
     - notifications
     - file_manager
-#   - reverse_proxy
+    #   - reverse_proxy
     - drift_management
     - role: datasets
       tags:

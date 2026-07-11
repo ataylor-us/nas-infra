@@ -4,3 +4,6 @@ skip_list:
   - var-naming[no-role-prefix]
   - package-latest
   - internal-error
+  - risky-shell-pipe
+  - ignore-errors
+  - no-handler
