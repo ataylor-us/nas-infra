@@ -1,21 +1,15 @@
 ---
 repos:
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.30.1
+  - repo: local
     hooks:
       - id: gitleaks
-  - repo: local
-    hooks:
-      - id: trufflehog
-        name: TruffleHog
-        description: Detect secrets in your data.
-        entry: bash -c 'trufflehog git file://.'
+        name: Detect hardcoded secrets
+        description: Detect hardcoded secrets using Gitleaks
+        entry: gitleaks git --pre-commit --redact --staged --verbose
         language: system
-        stages: ["pre-commit", "pre-push"]
-  - repo: local
-    hooks:
+        pass_filenames: false
       - id: ansible-lint
-        name: ansible-lint
+        name: Validate with linter
         description: This hook runs ansible-lint.
         entry: ansible-lint -v --force-color
         language: python

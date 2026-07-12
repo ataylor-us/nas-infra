@@ -3,8 +3,7 @@
   "extends": [
     "config:recommended",
     ":dependencyDashboard",
-    ":semanticCommits",
-    ":enablePreCommit"
+    ":semanticCommits"
   ],
   "rebaseWhen": "conflicted",
   "customManagers": [
