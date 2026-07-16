@@ -61,6 +61,8 @@ zfs_datasets:
   - name: tank/nt-vm-backup
     properties:
       mountpoint: /srv/nfs/nt-vm-backup
+      compression: zstd
+      "com.sun:auto-snapshot": "false"
   - name: tank/ludusavi
     properties:
       mountpoint: /srv/samba/ludusavi
