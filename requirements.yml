@@ -5,14 +5,14 @@ roles:
     version: v3.1.0
 collections:
   - name: community.general
-    version: "13.1.0"
+    version: "13.2.0"
   - name: artis3n.tailscale
     version: "1.2.1"
   - name: containers.podman
     version: "1.20.2"
   - name: community.crypto
-    version: "3.2.2"
+    version: "3.3.0"
   - name: community.libvirt
     version: "2.3.0"
   - name: vladgh.samba
-    version: "3.5.6"
+    version: "3.5.7"
