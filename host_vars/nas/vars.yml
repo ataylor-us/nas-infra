@@ -19,6 +19,10 @@ nfs_exports:
     gid: 0
     clients:
       - frontend.internal
+  - name: forgejo-git
+    options: "rw,sync,no_root_squash,mp"
+    clients:
+      - frontend.internal
   - name: paperless-consume
     path: /srv/samba/paperless-consume
     options: "rw,sync,no_root_squash,mp"
@@ -52,6 +56,9 @@ zfs_datasets:
   - name: tank/karakeep-assets
     properties:
       mountpoint: /srv/nfs/karakeep-assets
+  - name: tank/forgejo-git
+    properties:
+      mountpoint: /srv/nfs/forgejo-git
   - name: tank/homeassistant-backup
     properties:
       mountpoint: /srv/nfs/homeassistant-backup
