@@ -30,7 +30,7 @@ nfs_exports:
     gid: 0
     clients:
       - homeassistant.internal
-  - name: uptimekuma-backup
+  - name: beacon-backup
     options: "rw,sync,no_root_squash,mp"
     uid: 0
     gid: 0
@@ -55,9 +55,9 @@ zfs_datasets:
   - name: tank/homeassistant-backup
     properties:
       mountpoint: /srv/nfs/homeassistant-backup
-  - name: tank/uptimekuma-backup
+  - name: tank/beacon-backup
     properties:
-      mountpoint: /srv/nfs/uptimekuma-backup
+      mountpoint: /srv/nfs/beacon-backup
   - name: tank/nt-vm-backup
     properties:
       mountpoint: /srv/nfs/nt-vm-backup
