@@ -13,6 +13,18 @@ nfs_exports:
     gid: 0
     clients:
       - frontend.internal
+  - name: immich-thumbs
+    options: "rw,sync,no_root_squash,mp"
+    uid: 0
+    gid: 0
+    clients:
+      - frontend.internal
+  - name: immich-backups
+    options: "rw,sync,no_root_squash,mp"
+    uid: 0
+    gid: 0
+    clients:
+      - frontend.internal
   - name: karakeep-assets
     options: "rw,sync,no_root_squash,mp"
     uid: 0
@@ -53,6 +65,12 @@ zfs_datasets:
   - name: tank/immich-encoded-video
     properties:
       mountpoint: /srv/nfs/immich-encoded-video
+  - name: tank/immich-thumbs
+    properties:
+      mountpoint: /srv/nfs/immich-thumbs
+  - name: tank/immich-backups
+    properties:
+      mountpoint: /srv/nfs/immich-backups
   - name: tank/karakeep-assets
     properties:
       mountpoint: /srv/nfs/karakeep-assets
