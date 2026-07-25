@@ -23,7 +23,7 @@
   ansible.builtin.cron:
     day: "*"
     hour: "*/6"
-    job: borgmatic -C -p -v -1
+    job: borgmatic -C -p -v -1 --log-file /var/log/borgmatic.log --log-file-verbosity 2
     minute: "15"
     month: "*"
     name: borgmatic create + prune
