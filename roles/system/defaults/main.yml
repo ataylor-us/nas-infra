@@ -12,6 +12,7 @@ packages:
   - which
   - man-db
   - fail2ban
+  - fastfetch
 enabled_services:
   - sshd
   - cronie

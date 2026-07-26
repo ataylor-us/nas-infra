@@ -2,3 +2,4 @@
 packages:
   - podman
   - skopeo
+  - podman-compose
