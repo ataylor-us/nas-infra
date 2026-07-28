@@ -24,4 +24,4 @@
     group: caddy
     mode: "0640"
     owner: caddy
-  notify: Restart caddy
+  notify: Reload caddy

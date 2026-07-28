@@ -4,8 +4,8 @@
   ansible.builtin.systemd:
     name: tailscaled.service
     state: restarted
-- name: Restart caddy
+- name: Reload caddy
   become: true
   ansible.builtin.systemd:
     name: caddy.service
-    state: restarted
+    state: reloaded
