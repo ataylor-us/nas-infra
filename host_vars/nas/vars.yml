@@ -40,6 +40,10 @@ nfs_exports:
     options: "rw,sync,no_root_squash,mp"
     clients:
       - frontend.internal
+  - name: paperless-media
+    options: "rw,sync,no_root_squash,mp"
+    clients:
+      - frontend.internal
   - name: homeassistant-backup
     options: "rw,sync,no_root_squash,mp"
     uid: 0
@@ -77,6 +81,9 @@ zfs_datasets:
   - name: tank/forgejo-git
     properties:
       mountpoint: /srv/nfs/forgejo-git
+  - name: tank/paperless-media
+    properties:
+      mountpoint: /srv/nfs/paperless-media
   - name: tank/homeassistant-backup
     properties:
       mountpoint: /srv/nfs/homeassistant-backup
