@@ -40,6 +40,6 @@ Because of recent supply chain attacks, I am taking the precaution to no longer 
 The following are built manually with `makepkg -si`, with the updated PKGBUILD reviewed before each build:
 
 + [autofs](https://aur.archlinux.org/packages/autofs)
-+ [zfs-linux-lts](https://aur.archlinux.org/packages/zfs-linux-lts)
++ [zfs-dkms](https://aur.archlinux.org/packages/zfs-dkms)
 + [zfs-utils](https://aur.archlinux.org/packages/zfs-utils)
 + [zfs-auto-snapshot](https://aur.archlinux.org/packages/zfs-auto-snapshot)
