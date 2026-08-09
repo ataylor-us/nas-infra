@@ -38,6 +38,16 @@
     owner: root
     validate: /usr/sbin/visudo -cf %s
   become: true
+- name: Disable wifi and bluetooth
+  ansible.builtin.copy:
+    content: |
+      install cfg80211 /bin/false
+      install bluetooth /bin/false
+    dest: /etc/modprobe.d/disable-radio.conf
+    group: root
+    mode: "0644"
+    owner: root
+  become: true
 - name: Configure systemd-journald to persist storage
   ansible.builtin.include_role:
     name: persist_journald
