@@ -22,3 +22,25 @@
     group: root
     mode: "0440"
     validate: /usr/sbin/visudo -cf %s
+- name: Create target.service drop-in directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system/target.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+- name: Configure target.service to wait for zfs volumes
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/target.service.d/zfs.conf
+    content: |
+      [Unit]
+      After=zfs-volumes.target
+      Wants=zfs-volumes.target
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload systemd
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
