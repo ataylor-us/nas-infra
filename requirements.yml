@@ -16,3 +16,5 @@ collections:
     version: "2.3.0"
   - name: vladgh.samba
     version: "3.5.8"
+  - name: ansible.posix
+    version: "2.2.2"
