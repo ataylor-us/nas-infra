@@ -114,9 +114,11 @@ zfs_datasets:
       xattr: sa
       "com.sun:auto-snapshot": "false"
   - name: tank/cluster-volumes
-    properties: {}
+    properties:
+      mountpoint: none
   - name: tank/cluster-snapshots
-    properties: {}
+    properties:
+      mountpoint: none
 samba_shares_root: /srv/samba
 # Used the following article to tune samba:
 # https://www.antoneliasson.se/journal/time-machine-compatible-samba-on-debian-buster/
