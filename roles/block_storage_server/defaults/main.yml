@@ -1,0 +1,5 @@
+---
+enabled_services:
+  - target.service
+iscsi_user: cluster
+iscsi_home: /var/lib/cluster

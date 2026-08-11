@@ -43,3 +43,5 @@ The following are built manually with `makepkg -si`, with the updated PKGBUILD r
 + [zfs-dkms](https://aur.archlinux.org/packages/zfs-dkms)
 + [zfs-utils](https://aur.archlinux.org/packages/zfs-utils)
 + [zfs-auto-snapshot](https://aur.archlinux.org/packages/zfs-auto-snapshot)
++ [python-rtslib-fb](https://aur.archlinux.org/packages/python-rtslib-fb)
++ [targetcli-fb](https://aur.archlinux.org/packages/targetcli-fb)
