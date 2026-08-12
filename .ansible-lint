@@ -2,8 +2,6 @@
 # TODO - `fix syntax-check[missing-file]` issue with importing tasks from common
 skip_list:
   - var-naming[no-role-prefix]
-  - package-latest
   - internal-error
   - risky-shell-pipe
   - ignore-errors
-  - no-handler
