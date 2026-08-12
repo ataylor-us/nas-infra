@@ -91,6 +91,7 @@
         path: /usr/lib/initcpio/install/encryptssh
         regexp: "11-dm-initramfs.rules"
         state: absent
+      notify: Rebuild initramfs
     - name: Insert netconf dropbear encryptssh hooks
       ansible.builtin.replace:
         path: /etc/mkinitcpio.conf
