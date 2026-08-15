@@ -14,7 +14,7 @@ exclude_patterns:
   - /root/.cache/borg
   - /root/.config/borg
   - /var/log/journal
-compression: lz4
+compression: auto,zstd,3
 encryption_passphrase: '{{ borg_passphrase }}'
 archive_name_format: '{hostname}-{now:%Y-%m-%d-%H%M%S}'
 read_special: true
