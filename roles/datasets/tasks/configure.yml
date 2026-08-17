@@ -48,6 +48,7 @@
     owner: root
     group: root
     mode: "0644"
+  notify: Rebuild initramfs
 - name: Create zfs-mount.service drop-in directory
   become: true
   ansible.builtin.file:
