@@ -69,6 +69,7 @@ zfs_datasets:
   - name: tank/immich-encoded-video
     properties:
       mountpoint: /srv/nfs/immich-encoded-video
+      recordsize: 1M
   - name: tank/immich-thumbs
     properties:
       mountpoint: /srv/nfs/immich-thumbs
@@ -93,6 +94,7 @@ zfs_datasets:
   - name: tank/nt-vm-backup
     properties:
       mountpoint: /srv/nfs/nt-vm-backup
+      recordsize: 1M
       compression: zstd
       "com.sun:auto-snapshot": "false"
   - name: tank/ludusavi

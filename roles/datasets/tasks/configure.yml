@@ -39,6 +39,15 @@
       - type: mirror
         disks: "{{ zpool_disks }}"
   when: zpool_check is failed
+- name: Limit ZFS ARC to 8GB
+  become: true
+  ansible.builtin.copy:
+    content: |
+      options zfs zfs_arc_max=8589934592
+    dest: /etc/modprobe.d/zfs.conf
+    owner: root
+    group: root
+    mode: "0644"
 - name: Create zfs-mount.service drop-in directory
   become: true
   ansible.builtin.file:
