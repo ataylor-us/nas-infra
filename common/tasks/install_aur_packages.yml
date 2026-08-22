@@ -1,0 +1,24 @@
+---
+- name: Check out pinned commits of AUR packages
+  become: true
+  become_user: aur_builder
+  ansible.builtin.git:
+    repo: "https://aur.archlinux.org/{{ package.name }}.git"
+    dest: "~/{{ package.name }}"
+    version: "{{ package.commit }}"
+  loop: "{{ aur_packages }}"
+  loop_control:
+    loop_var: package
+  register: aur_checkout
+- name: Install AUR packages using makepkg
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name: "{{ checkout.package.name }}"
+    use: makepkg
+    local_pkgbuild: "~/{{ checkout.package.name }}"
+    state: "{{ 'latest' if checkout.changed else 'present' }}"
+  loop: "{{ aur_checkout.results }}"
+  loop_control:
+    loop_var: checkout
+    label: "{{ checkout.package.name }}"

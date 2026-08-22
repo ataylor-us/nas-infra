@@ -17,6 +17,29 @@
       ],
       "datasourceTemplate": "{{#if datasource}}{{datasource}}{{else}}docker{{/if}}",
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}docker{{/if}}"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/roles/.+/defaults/main\\.ya?ml$/",
+        "/(^|/)(group_vars|host_vars)/.+\\.ya?ml$/"
+      ],
+      "matchStringsStrategy": "recursive",
+      "matchStrings": [
+        "aur_packages:\\s*\\n(?:[ \\t]+[^\\n]*\\n?)+",
+        "name:\\s*[\"']?(?<depName>[^\\s\"']+)[\"']?\\s*\\n\\s*commit:\\s*[\"']?(?<currentDigest>[a-f0-9]{40})"
+      ],
+      "currentValueTemplate": "master",
+      "packageNameTemplate": "https://aur.archlinux.org/{{depName}}.git",
+      "datasourceTemplate": "git-refs"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["git-refs"],
+      "matchPackageNames": ["/^https://aur\\.archlinux\\.org//"],
+      "matchUpdateTypes": ["digest"],
+      "changelogUrl": "https://aur.archlinux.org/cgit/aur.git/diff/?h={{depName}}&id={{newDigest}}&id2={{currentDigest}}"
     }
   ]
 }

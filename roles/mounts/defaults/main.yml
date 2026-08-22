@@ -2,6 +2,9 @@
 packages:
   - nfs-utils
   - cifs-utils
+aur_packages:
+  - name: autofs
+    commit: 0fc5ebc486f119cd4d43011afdaeae6b5facf890
 enabled_services:
   - autofs
 autofs_mounts: []

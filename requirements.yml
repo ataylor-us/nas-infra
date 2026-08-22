@@ -18,3 +18,5 @@ collections:
     version: "3.5.8"
   - name: ansible.posix
     version: "2.2.2"
+  - name: kewlfft.aur
+    version: "0.13.0"
