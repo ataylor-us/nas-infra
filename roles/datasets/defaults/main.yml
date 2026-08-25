@@ -1,4 +1,7 @@
 ---
+aur_packages:
+  - name: zfs-auto-snapshot
+    commit: a54004c6f84cbb86bbbd5b54aa312794b22e2f11
 enabled_services:
   - zfs-import-cache.service
   - zfs-import.target

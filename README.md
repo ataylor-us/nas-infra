@@ -37,3 +37,10 @@ Firewall rules (& drift management) are handled externally by [OpenVox](https://
 
 [Renovate](https://github.com/renovatebot/renovate) is used to make PRs for containers, Ansible Galaxy collections, and AUR packages.  Other updates are handled manually by the package manager.
 
+## Manual Steps
+
+Currently figuring out an automated process with these packages. They are built manually with `makepkg -si`, with the updated PKGBUILD reviewed before each build:
+
++ [zfs-dkms](https://aur.archlinux.org/packages/zfs-dkms)
++ [zfs-utils](https://aur.archlinux.org/packages/zfs-utils)
+
