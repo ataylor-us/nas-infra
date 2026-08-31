@@ -17,6 +17,7 @@
     mode: "0600"
     owner: root
     src: config.yaml.j2
+  notify: Init local borg repo
 - name: Add borgmatic backup & prune job
   when: borgmatic_config is not failed
   become: true

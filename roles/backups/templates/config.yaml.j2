@@ -7,6 +7,10 @@ source_directories:
 repositories:
     - path: '{{ remote_borg_repo_path }}'
       label: "remote"
+{% if local_borg_repo is defined %}
+    - path: '{{ local_borg_repo }}'
+      label: "local"
+{% endif %}
 exclude_if_present:
   - .nobackup
 exclude_patterns:

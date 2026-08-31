@@ -1,0 +1,7 @@
+---
+- name: Init local borg repo
+  when: local_borg_repo is defined
+  become: true
+  ansible.builtin.command:
+    cmd: borgmatic repo-create --encryption repokey-blake2 --repository {{ local_borg_repo }}
+  changed_when: true
