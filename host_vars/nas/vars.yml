@@ -50,12 +50,6 @@ nfs_exports:
     options: "rw,sync,no_root_squash,mp"
     clients:
       - frontend.internal
-  - name: homeassistant-backup
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
-    clients:
-      - homeassistant.internal
   - name: beacon-backup
     options: "rw,sync,no_root_squash,mp"
     uid: 0
@@ -91,9 +85,6 @@ zfs_datasets:
   - name: tank/paperless-media
     properties:
       mountpoint: /srv/nfs/paperless-media
-  - name: tank/homeassistant-backup
-    properties:
-      mountpoint: /srv/nfs/homeassistant-backup
   - name: tank/beacon-backup
     properties:
       mountpoint: /srv/nfs/beacon-backup
@@ -115,18 +106,6 @@ zfs_datasets:
   - name: tank/paperless-consume
     properties:
       mountpoint: /srv/samba/paperless-consume
-  - name: tank/timemachine-laptop-pro
-    properties:
-      mountpoint: /srv/samba/timemachine-laptop-pro
-      quota: 2T
-      xattr: sa
-      "com.sun:auto-snapshot": "false"
-  - name: tank/cluster-volumes
-    properties:
-      mountpoint: none
-  - name: tank/cluster-snapshots
-    properties:
-      mountpoint: none
 samba_shares_root: /srv/samba
 # Used the following article to tune samba:
 # https://www.antoneliasson.se/journal/time-machine-compatible-samba-on-debian-buster/
@@ -168,22 +147,6 @@ samba_shares:
     valid_users: epson
     write_list: epson
     user: "{{ username }}"
-  - name: timemachine-laptop-pro
-    comment: Time Machine (laptop-pro)
-    owner: laptop_pro
-    group: laptop_pro
-    directory_mode: "0700"
-    valid_users: laptop_pro
-    write_list: laptop_pro
-    vfs_objects:
-      - name: catia
-      - name: fruit
-        options:
-          - name: time machine
-            value: "yes"
-          - name: time machine max size
-            value: "2T"
-      - name: streams_xattr
 samba_users:
   - name: gamepc
     password: "{{ gamepc_smb_password }}"
@@ -194,7 +157,6 @@ samba_users:
 gamepc_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/gamepc_smb_password') }}"
 epson_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/epson_smb_password') }}"
 laptop_pro_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/laptop_pro_smb_password') }}"
-iscsi_ssh_public_key: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/iscsi_ssh_public_key') }}"
 zpool_name: tank
 zpool_disks:
   - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"

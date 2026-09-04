@@ -2,7 +2,7 @@
 
 Base playbook to set up my NAS (network attached storage) box
 
-A [ZFS](https://github.com/openzfs/zfs) mirror (RAID1) is shared over NFS and Samba for various services in my homelab such as Time Machine backups, storage for my [frontend](https://github.com/ataylor-us/frontend-infra) box, and more.
+A [ZFS](https://github.com/openzfs/zfs) mirror (RAID1) is shared over NFS and Samba for various services in my homelab such as storage for my [frontend](https://github.com/ataylor-us/frontend-infra) box, and more.
 
 ## Running
 

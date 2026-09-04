@@ -35,10 +35,6 @@
         - samba
         - after-zfs
       become: true
-    - role: block_storage_server
-      tags:
-        - iscsi
-        - after-zfs
   tasks:
     # I canot disable the "Beelink Mini PC, ME Pro 2" speaker in the BIOS
     # Until I get the soldering iron out, this will have to do
