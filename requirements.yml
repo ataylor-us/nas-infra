@@ -13,7 +13,7 @@ collections:
   - name: containers.podman
     version: "1.21.1"
   - name: community.crypto
-    version: "3.5.0"
+    version: "3.5.1"
   - name: community.libvirt
     version: "2.4.0"
   - name: vladgh.samba
