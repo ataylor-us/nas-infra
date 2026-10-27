@@ -38,6 +38,18 @@
     owner: root
     validate: /usr/sbin/visudo -cf %s
   become: true
+- name: Enable fail2ban sshd jail
+  ansible.builtin.copy:
+    content: |
+      [sshd]
+      enabled = true
+      backend = systemd
+    dest: /etc/fail2ban/jail.d/sshd.local
+    group: root
+    mode: "0644"
+    owner: root
+  become: true
+  notify: Restart fail2ban
 - name: Disable wifi and bluetooth
   ansible.builtin.copy:
     content: |

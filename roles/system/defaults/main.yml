@@ -13,6 +13,7 @@ packages:
   - man-db
   - fail2ban
   - fastfetch
+  - unzip
 enabled_services:
   - sshd
   - cronie
