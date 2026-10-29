@@ -109,22 +109,6 @@ samba_global_config_extras: |
   fruit:copyfile = yes
   include = /etc/samba/extra-shares.conf
 samba_shares:
-  - name: ludusavi
-    comment: Game save backups
-    owner: "{{ username }}"
-    group: "{{ group }}"
-    directory_mode: "0755"
-    valid_users: gamepc
-    write_list: gamepc
-    user: "{{ username }}"
-  - name: gamepc-share
-    comment: gamepc share
-    owner: "{{ username }}"
-    group: "{{ group }}"
-    directory_mode: "0755"
-    valid_users: gamepc
-    write_list: gamepc
-    user: "{{ username }}"
   - name: laptop-pro-share
     comment: laptop-pro share
     owner: "{{ username }}"
@@ -142,13 +126,10 @@ samba_shares:
     write_list: epson
     user: "{{ username }}"
 samba_users:
-  - name: gamepc
-    password: "{{ gamepc_smb_password }}"
   - name: epson
     password: "{{ epson_smb_password }}"
   - name: laptop_pro
     password: "{{ laptop_pro_smb_password }}"
-gamepc_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/gamepc_smb_password') }}"
 epson_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/epson_smb_password') }}"
 laptop_pro_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/laptop_pro_smb_password') }}"
 zpool_name: tank
