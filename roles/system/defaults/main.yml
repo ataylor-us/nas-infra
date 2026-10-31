@@ -19,3 +19,4 @@ enabled_services:
   - cronie
   - man-db.timer
   - fail2ban
+  - fstrim.timer
