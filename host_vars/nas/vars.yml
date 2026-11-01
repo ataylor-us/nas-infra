@@ -60,23 +60,23 @@ zfs_datasets:
   - name: tank/immich-upload
     properties:
       mountpoint: /srv/nfs/immich-upload
-  - name: tank/immich-encoded-video
+  - name: tank-nvme/immich-encoded-video
     properties:
       mountpoint: /srv/nfs/immich-encoded-video
       recordsize: 1M
-  - name: tank/immich-thumbs
+  - name: tank-nvme/immich-thumbs
     properties:
       mountpoint: /srv/nfs/immich-thumbs
   - name: tank/immich-backups
     properties:
       mountpoint: /srv/nfs/immich-backups
-  - name: tank/karakeep-assets
+  - name: tank-nvme/karakeep-assets
     properties:
       mountpoint: /srv/nfs/karakeep-assets
-  - name: tank/forgejo-git
+  - name: tank-nvme/forgejo-git
     properties:
       mountpoint: /srv/nfs/forgejo-git
-  - name: tank/paperless-media
+  - name: tank-nvme/paperless-media
     properties:
       mountpoint: /srv/nfs/paperless-media
   - name: tank/beacon-backup
@@ -151,11 +151,18 @@ samba_users:
 gamepc_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/gamepc_smb_password') }}"
 epson_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/epson_smb_password') }}"
 laptop_pro_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/laptop_pro_smb_password') }}"
-zpool_name: tank
-zpool_disks:
-  - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
-  - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk2-path') }}"
-zpool_key: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-key') }}"
+zpools:
+  - name: tank
+    disks:
+      - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk1-path') }}"
+      - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-disk2-path') }}"
+  - name: tank-nvme
+    disks:
+      - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-nvme-disk1-path') }}"
+      - "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-nvme-disk2-path') }}"
+zpool_keys:
+  tank: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-key') }}"
+  tank-nvme: "{{ lookup('community.general.passwordstore', 'Repositories/nas-infra/zfs-tank-nvme-key') }}"
 # On boot, eth0/eth1 are the arbitrarily assigned network device names (different than post-boot)
 # They seem to switch randomly between the two, and I'm not sure why
 #

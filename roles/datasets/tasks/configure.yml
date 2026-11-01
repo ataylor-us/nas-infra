@@ -7,26 +7,25 @@
     owner: root
     group: root
     mode: "0700"
-- name: Write zpool passphrase keyfile from pass
+# community.general.zpool does not seem to be idempotent
+- name: Gather zpool facts
+  become: true
+  community.general.zpool_facts:
+    properties: name
+- name: Write zpool passphrase keyfiles from pass
   become: true
   ansible.builtin.copy:
-    dest: "/etc/zfs/keys/{{ zpool_name }}.key"
-    content: "{{ zpool_key }}\n"
+    dest: "/etc/zfs/keys/{{ item.name }}.key"
+    content: "{{ zpool_keys[item.name] }}\n"
     owner: root
     group: root
     mode: "0400"
+  loop: "{{ zpools }}"
   no_log: true
-# community.general.zpool does not seem to be idempotent
-- name: Check whether zpool already exists
-  become: true
-  community.general.zpool_facts:
-    pool: "{{ zpool_name }}"
-  register: zpool_check
-  ignore_errors: true
-- name: Create encrypted zpool mirror
+- name: Create encrypted zpool mirrors
   become: true
   community.general.zpool:
-    name: "{{ zpool_name }}"
+    name: "{{ item.name }}"
     mountpoint: none
     pool_properties:
       ashift: "12"
@@ -34,11 +33,23 @@
       compression: lz4
       encryption: aes-256-gcm
       keyformat: passphrase
-      keylocation: "file:///etc/zfs/keys/{{ zpool_name }}.key"
+      keylocation: "file:///etc/zfs/keys/{{ item.name }}.key"
     vdevs:
       - type: mirror
-        disks: "{{ zpool_disks }}"
-  when: zpool_check is failed
+        disks: "{{ item.disks }}"
+  loop: "{{ zpools }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.name not in ansible_zfs_pools | map(attribute='name')
+- name: Enable monthly scrub timers
+  become: true
+  ansible.builtin.systemd:
+    enabled: true
+    name: "zfs-scrub-monthly@{{ item.name }}.timer"
+    state: started
+  loop: "{{ zpools }}"
+  loop_control:
+    label: "{{ item.name }}"
 - name: Limit ZFS ARC to 8GB
   become: true
   ansible.builtin.copy:
