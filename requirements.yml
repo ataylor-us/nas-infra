@@ -7,7 +7,7 @@ roles:
     version: 2.2.0
 collections:
   - name: community.general
-    version: "14.0.0"
+    version: "14.0.1"
   - name: artis3n.tailscale
     version: "1.2.1"
   - name: containers.podman
