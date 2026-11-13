@@ -47,9 +47,16 @@ nfs_exports:
     clients:
       - beacon.internal
 zfs_datasets:
+  - name: tank
+    properties:
+      atime: "off"
+  - name: tank-nvme
+    properties:
+      atime: "off"
   - name: tank/immich-upload
     properties:
       mountpoint: /srv/nfs/immich-upload
+      recordsize: 1M
   - name: tank-nvme/immich-encoded-video
     properties:
       mountpoint: /srv/nfs/immich-encoded-video
@@ -87,6 +94,7 @@ zfs_datasets:
   - name: tank/laptop-pro-share
     properties:
       mountpoint: /srv/samba/laptop-pro-share
+      recordsize: 1M
   - name: tank/paperless-consume
     properties:
       mountpoint: /srv/samba/paperless-consume
