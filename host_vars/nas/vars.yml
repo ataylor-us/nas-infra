@@ -8,52 +8,42 @@ autofs_mounts:
 local_borg_repo: /misc/borg
 nfs_exports:
   - name: immich-upload
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: immich-encoded-video
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: immich-thumbs
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: immich-backups
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: karakeep-assets
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: forgejo-git
-    options: "rw,sync,no_root_squash,mp"
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: paperless-consume
     path: /srv/samba/paperless-consume
-    options: "rw,sync,no_root_squash,mp"
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: paperless-media
-    options: "rw,sync,no_root_squash,mp"
+    options: "rw,sync,root_squash,mp"
     clients:
       - frontend.internal
   - name: beacon-backup
-    options: "rw,sync,no_root_squash,mp"
-    uid: 0
-    gid: 0
+    options: "rw,sync,root_squash,mp"
+    uid: 65534
+    gid: 65534
     clients:
       - beacon.internal
 zfs_datasets:
