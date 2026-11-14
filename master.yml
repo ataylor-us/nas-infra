@@ -51,3 +51,5 @@
       community.general.modprobe:
         name: pcspkr
         state: absent
+      # This will fail the playbook if kernel is updated without a reboot, lazy fix
+      ignore_errors: true
