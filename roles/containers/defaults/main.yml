@@ -1,5 +1,5 @@
 ---
-packages:
-  - podman
-  - skopeo
-  - podman-compose
+use_docker: false
+# Use docker instead of podman if specified
+packages: "{{ ['docker'] if use_docker else ['podman', 'skopeo', 'podman-compose'] }}"
+enabled_services: "{{ ['docker.service'] if use_docker else [] }}"
