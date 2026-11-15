@@ -2,6 +2,11 @@
 aur_packages:
   - name: zfs-auto-snapshot
     commit: a54004c6f84cbb86bbbd5b54aa312794b22e2f11
+manual_aur_packages:
+  - name: zfs-dkms
+    commit: 052b457ee3e7b0214249a7a7b29b4100fa93eb74
+  - name: zfs-utils
+    commit: c878c355183ca745285d8eaf538b98788e373d3a
 enabled_services:
   - zfs-import-cache.service
   - zfs-import.target
