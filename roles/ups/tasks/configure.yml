@@ -1,0 +1,21 @@
+---
+- name: Configure nut.conf
+  become: true
+  ansible.builtin.copy:
+    content: "MODE=netclient\n"
+    dest: /etc/nut/nut.conf
+    owner: root
+    group: nut
+    mode: "0640"
+  notify: Restart nut-monitor
+- name: Configure upsmon.conf
+  become: true
+  ansible.builtin.template:
+    src: upsmon.conf.j2
+    dest: /etc/nut/upsmon.conf
+    owner: root
+    group: nut
+    mode: "0640"
+  notify: Restart nut-monitor
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

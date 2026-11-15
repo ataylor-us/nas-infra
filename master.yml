@@ -19,6 +19,8 @@
       when: "'tailscale' in group_names"
       tags: tailscale
     - notifications
+    - role: ups
+      when: ups | default(false)
     - file_manager
     #   - reverse_proxy
     - drift_management

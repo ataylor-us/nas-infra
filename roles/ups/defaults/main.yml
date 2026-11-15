@@ -1,0 +1,8 @@
+---
+packages:
+  - nut
+masked_services:
+  - nut-server
+enabled_services:
+  - nut.target
+  - nut-monitor

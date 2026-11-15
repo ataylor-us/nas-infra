@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+MONITOR {{ ups_name }}@{{ ups_host }} 1 {{ ups_user }} {{ ups_password }} secondary
+SHUTDOWNCMD "/sbin/shutdown -h +0"
+POWERDOWNFLAG /etc/killpower

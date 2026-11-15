@@ -1,0 +1,6 @@
+---
+ups: true
+ups_name: diningroom-ups.internal
+ups_host: diningroom-ups.internal
+ups_user: lab
+ups_password: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/diningroom-ups') }}"
