@@ -7,20 +7,83 @@
     owner: root
     path: /etc/borgmatic.d
     state: directory
+# API calls from https://docs.borgbase.com/api/
+- name: Set up BorgBase repo
+  when: remote_borg_repo_path is not defined
+  module_defaults:
+    ansible.builtin.uri:
+      body_format: json
+      headers:
+        Authorization: "Bearer {{ borgbase_api_token }}"
+      method: POST
+      url: https://api.borgbase.com/graphql
+  vars:
+    borgbase_repo: "{{ borgbase_state.json.data.repoList | selectattr('name', 'equalto', inventory_hostname) | first | default({}) }}"
+    borgbase_key: >-
+      {{ borgbase_state.json.data.sshList
+      | selectattr('keyData', 'contains', borg_root_user.ssh_public_key.split()[1]) | first | default({}) }}
+  block:
+    - name: Look up BorgBase repos and SSH keys
+      delegate_to: localhost
+      check_mode: false
+      ansible.builtin.uri:
+        body:
+          query: "{ repoList { name repoPath } sshList { id keyData } }"
+      register: borgbase_state
+      failed_when: borgbase_state is failed or borgbase_state.json.errors is defined
+    - name: Create missing BorgBase repo
+      when: not borgbase_repo and not ansible_check_mode
+      block:
+        - name: Generate root SSH key
+          become: true
+          ansible.builtin.user:
+            generate_ssh_key: true
+            name: root
+            ssh_key_type: ed25519
+          register: borg_root_user
+        - name: Add root SSH key to BorgBase
+          when: not borgbase_key
+          delegate_to: localhost
+          ansible.builtin.uri:
+            body:
+              query: "mutation($name: String!, $keyData: String!) { sshAdd(name: $name, keyData: $keyData) { keyAdded { id } } }"
+              variables:
+                keyData: "{{ borg_root_user.ssh_public_key }}"
+                name: "root@{{ inventory_hostname }}"
+          register: borgbase_new_key
+          changed_when: true
+          failed_when: borgbase_new_key is failed or borgbase_new_key.json.errors is defined
+        - name: Create BorgBase repo
+          delegate_to: localhost
+          ansible.builtin.uri:
+            body:
+              query: |
+                mutation($name: String!, $region: String!, $keys: [String]) {
+                  repoAdd(name: $name, region: $region, fullAccessKeys: $keys) { repoAdded { repoPath } }
+                }
+              variables:
+                keys:
+                  - "{{ borgbase_key.id if borgbase_key else borgbase_new_key.json.data.sshAdd.keyAdded.id }}"
+                name: "{{ inventory_hostname }}"
+                region: us
+          register: borgbase_new_repo
+          changed_when: true
+          failed_when: borgbase_new_repo is failed or borgbase_new_repo.json.errors is defined
+    - name: Set remote borg repo path
+      ansible.builtin.set_fact:
+        remote_borg_repo_path: >-
+          {{ borgbase_repo.repoPath | default(borgbase_new_repo.json.data.repoAdd.repoAdded.repoPath) | default('created-on-first-run') }}
 - name: Copy borgmatic config
   become: true
-  ignore_errors: true
-  register: borgmatic_config
   ansible.builtin.template:
     dest: /etc/borgmatic.d/config.yaml
     group: root
     mode: "0600"
     owner: root
     src: config.yaml.j2
-  notify: Init local borg repo
+  notify: Init borg repos
 # Idempotent random minute so they dont fire off at once
 - name: Add borgmatic backup & prune job
-  when: borgmatic_config is not failed
   become: true
   ansible.builtin.cron:
     day: "*"

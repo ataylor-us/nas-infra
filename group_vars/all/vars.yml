@@ -37,3 +37,7 @@ mailgun_user: "{{ lookup('community.general.passwordstore', 'Repositories/arch-b
 mailgun_password: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/mailgun_password') }}"
 mailgun_from: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/mailgun_from') }}"
 notification_email: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/notification_email') }}"
+borgbase_api_token: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/borgbase_api_token') }}"
+borg_passphrase: >-
+  {{ lookup('community.general.passwordstore', 'Repositories/' ~ inventory_hostname ~ '-infra/borg_passphrase',
+  create=true, length=32, nosymbols=true) }}
