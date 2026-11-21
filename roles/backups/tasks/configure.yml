@@ -83,14 +83,27 @@
     src: config.yaml.j2
   notify: Init borg repos
 # Idempotent random minute so they dont fire off at once
-- name: Add borgmatic backup & prune job
+- name: Add borgmatic backup job
   become: true
   ansible.builtin.cron:
     day: "*"
     hour: "2,10,18"
-    job: borgmatic create prune compact -v -1
+    job: borgmatic create -v -1
     minute: "{{ 60 | random(seed=inventory_hostname) }}"
     month: "*"
     name: borgmatic create + prune
     user: root
     weekday: "*"
+# This prunes older archives, ignoring label limits
+# TODO: remove old yearly backups from configs
+- name: Add borgmatic prune & compact job
+  become: true
+  ansible.builtin.cron:
+    day: "*"
+    hour: "6"
+    job: borgmatic prune -v -1; borgmatic -c /etc/borgmatic.d/config.yaml -v -1 borg prune --keep-within 5m; borgmatic compact -v -1
+    minute: "{{ 60 | random(seed=inventory_hostname) }}"
+    month: "*"
+    name: borgmatic prune + compact
+    user: root
+    weekday: "6"
